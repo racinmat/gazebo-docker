@@ -4,7 +4,9 @@ FROM azathoth/gazebo:only-repository
 RUN cd ~ && \
     git clone git@github.com:MBZIRCUPENNCTU/simulation.git && \
     cd simulation && \
-    git submodule update --init --recursive && \
+    git submodule update --init --recursive
+
+RUN cd ~/simulation && \
     mkdir build && \
     cd build && \
     cmake .. -DCMAKE_INSTALL_PREFIX=~/simulation/install && \

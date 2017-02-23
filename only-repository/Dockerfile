@@ -4,7 +4,7 @@ FROM ubuntu:14.04
 RUN sudo apt-get update && apt-get install -y git
 
 # copying my private key to docker container
-COPY ./../id_rsa /root/.ssh/id_rsa
+COPY ./id_rsa /root/.ssh/id_rsa
 # because otherwise the private key is publicly accessible and ssh rejects it
 RUN chmod 600 /root/.ssh/id_rsa && \
     ssh-keyscan github.com >> /root/.ssh/known_hosts    # adding github.com to known hosts before cloning
@@ -57,9 +57,9 @@ RUN sudo apt-get install -y \
 # adding address used in updateRepository.sh to known hosts
 RUN ssh-keyscan mrsl.grasp.upenn.edu >> /root/.ssh/known_hosts
 # copying pasword to rsync used in updateRepository.sh
-COPY ./../rsync_pass /root/rsync_pass
+COPY ./rsync_pass /root/rsync_pass
 # copying script responible for updating repository in noninteractive manner
-COPY ./../updateRepository-noninteractive.sh /root/updateRepository-noninteractive.sh
+COPY ./updateRepository-noninteractive.sh /root/updateRepository-noninteractive.sh
 # chmoding so it can be executed, then removing DOS line endings
 RUN chmod +x /root/updateRepository-noninteractive.sh && \
     dos2unix /root/updateRepository-noninteractive.sh && \

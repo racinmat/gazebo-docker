@@ -1,6 +1,31 @@
-build:
-	docker build -t gazebo .
+running:
+
 run once:
-	docker run gazebo
+	without simulations:
+		docker run azathoth/gazebo:only-repository
+	with simulations:
+		docker run azathoth/gazebo:with-simulations
+
 run as guest OS:
-	docker run -it gazebo
+	docker run -it azathoth/gazebo:only-repository
+
+
+developing:
+
+before building: 
+	in this repository, you need to have 2 text files:
+		id_rsa
+			to this file, put a private ssh key to clone private github repository
+		rsync_pass
+			to this file, put a password to downlod mbzirc repo
+build:
+	only repository:
+		docker build -f ./only-repository/Dockerfile -t gazebo:only-repository .
+	repository with simulations:
+		docker build -f ./with-simulations/Dockerfile -t gazebo:with-simulations .
+
+push:
+	only repository:
+		docker push azathoth/gazebo:only-repository
+	repository with simulations:
+		docker push azathoth/gazebo:with-simulations
