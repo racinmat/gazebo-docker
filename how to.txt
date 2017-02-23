@@ -1,0 +1,6 @@
+build:
+	docker build -t gazebo .
+run once:
+	docker run gazebo
+run as guest OS:
+	docker run -it gazebo
