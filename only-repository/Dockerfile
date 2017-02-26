@@ -1,7 +1,12 @@
 FROM ubuntu:14.04
 
-# installing git
-RUN sudo apt-get update && apt-get install -y git
+# setting the default shell to bash0
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+# installing git, and some shit to get add-apt-repository working
+RUN sudo apt-get update && sudo apt-get install -y \
+    git \
+    software-properties-common \
+    python-software-properties
 
 # copying my private key to docker container
 COPY ./id_rsa /root/.ssh/id_rsa
@@ -96,4 +101,4 @@ RUN cd ~/ros_workspace && \
 # Add "source ~/ros_workspace/devel/setup.bash" and source it again
 # source is part of bash, and not sh, so bash must be called
 RUN echo "source ~/ros_workspace/devel/setup.bash" >> ~/.bashrc && \
-    /bin/bash -c "source ~/.bashrc"
+    source ~/.bashrc

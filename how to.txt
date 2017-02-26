@@ -24,8 +24,13 @@ build:
 	repository with simulations:
 		docker build -f ./with-simulations/Dockerfile -t gazebo:with-simulations .
 
+tag to azathoth user:
+	docker tag gazebo:only-repository azathoth/gazebo:only-repository
+	docker tag gazebo:with-simulations azathoth/gazebo:with-simulations
+
 push:
 	only repository:
 		docker push azathoth/gazebo:only-repository
 	repository with simulations:
 		docker push azathoth/gazebo:with-simulations
+

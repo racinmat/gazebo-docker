@@ -1,18 +1,21 @@
 FROM azathoth/gazebo:only-repository
 
-# todo: zjistit, kam to první cd
 RUN cd ~ && \
     git clone git@github.com:MBZIRCUPENNCTU/simulation.git && \
     cd simulation && \
-    git submodule update --init --recursive
+    git submodule update --init --recursive && \
+    sudo apt-get install cmake gcc g++
 
 RUN cd ~/simulation && \
     mkdir build && \
     cd build && \
     cmake .. -DCMAKE_INSTALL_PREFIX=~/simulation/install && \
-    make -j4 && \
-    make install && \
+    make && \
+    make install
 
 RUN echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc && \
     echo "source ~/simulation/install/share/simulation/setup.sh" >> ~/.bashrc && \
-    /bin/bash -c "source ~/.bashrc"
+    source ~/.bashrc
+
+RUN echo 'export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros_workspace/src/mbzirc/gazebo_support/models' >>  ~/.bashrc && \
+    source ~/.bashrc
