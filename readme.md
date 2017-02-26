@@ -1,16 +1,32 @@
-running:
+running the containers
+======================
 
-run once:
-	without simulations:
-		docker run azathoth/gazebo:only-repository
-	with simulations:
-		docker run azathoth/gazebo:with-simulations
+### run once  
+	- without simulations: `docker run azathoth/gazebo:only-repository`  
+	- with simulations:	    `docker run azathoth/gazebo:with-simulations`
 
-run as guest OS:
-	docker run -it azathoth/gazebo:only-repository
+### run as guest OS
+	`docker run -it azathoth/gazebo:only-repository`
 
-run as guest OS with shared desktop via vnc:
-	docker run -p 5900 gazebo:with-vnc-gui x11vnc -forever -usepw -create
+### run as guest OS with shared desktop via vnc:
+	`docker run -p 5900 gazebo:with-vnc-gui x11vnc -forever -usepw -create`
+
+connect to running container:
+	docker attach [id]
+
+connect to running container and create new shell:
+	docker exec -it [id] bash
+
+
+how to run simulation:
+	start ros container by:
+		docker run -p 5900 gazebo:with-vnc-gui x11vnc -forever -usepw -create
+	in another cmd window, get its id by:
+		docker ps
+	run
+		docker exec -it [id] bash
+	in this window
+
 
 
 developing:
