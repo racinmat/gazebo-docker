@@ -12,6 +12,23 @@ run as guest OS:
 run as guest OS with shared desktop via vnc:
 	docker run -p 5900 gazebo:with-vnc-gui x11vnc -forever -usepw -create
 
+connect to running container:
+	docker attach [id]
+
+connect to running container and create new shell:
+	docker exec -it [id] bash
+
+
+how to run simulation:
+	start ros container by:
+		docker run -p 5900 gazebo:with-vnc-gui x11vnc -forever -usepw -create
+	in another cmd window, get its id by:
+		docker ps
+	run
+		docker exec -it [id] bash
+	in this window
+
+
 
 developing:
 
@@ -37,3 +54,7 @@ push:
 	repository with simulations:
 		docker push azathoth/gazebo:with-simulations
 
+
+
+
+docker run -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" gazebo:with-vnc-gui rqt

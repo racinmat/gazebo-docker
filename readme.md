@@ -18,7 +18,7 @@ running the containers
 `docker exec -it [id] bash`
 
 
-### how to run simulation:
+### how to run simulation via VNC viewer:
 - start ros container by `docker run -p 5900 gazebo:with-vnc-gui x11vnc -forever -usepw -create`
 - in another cmd window, by `docker ps` get its id and port
 - run `docker exec -it [id] bash` in that new window
@@ -26,7 +26,15 @@ running the containers
 - start simulation in the VNC viewer
 - spawn in that new cmd window
 
+### how to run simulation via X server:
+- start ros container by `docker run -p 5900 gazebo:with-vnc-gui x11vnc -forever -usepw -create`
+- in another cmd window, by `docker ps` get its id and port
+- run `docker exec -it [id] bash` in that new window
+- start VNC viewer, initialize the new connection with the localhost:[port] and the password 1234
+- start simulation in the VNC viewer
+- spawn in that new cmd window
 
+docker run -it -e="DISPLAY" -v="/tmp/.X11-unix:/tmp/.X11-unix:rw" gazebo:with-vnc-gui
 
 developing the images
 =====================
