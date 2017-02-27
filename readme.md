@@ -27,14 +27,17 @@ running the containers
 - spawn in that new cmd window
 
 ### how to run simulation via X server:
-- start ros container by `docker run -p 5900 gazebo:with-vnc-gui x11vnc -forever -usepw -create`
+- start ros container by `docker run -it -e="DISPLAY" -v="/tmp/.X11-unix:/tmp/.X11-unix:rw" gazebo:with-vnc-gui`
+- in this container, run `roslaunch simulation simulation.launch`
 - in another cmd window, by `docker ps` get its id and port
 - run `docker exec -it [id] bash` in that new window
-- start VNC viewer, initialize the new connection with the localhost:[port] and the password 1234
+- start xlaunch in VcXsrv
+	DISABLE Native opengl
+	ENABLE Disable access control
 - start simulation in the VNC viewer
-- spawn in that new cmd window
+- spawn in that new cmd window `spawn 1 2 --enable-bluefox-camera --enable-mobius-camera --enable-rangefinder --run --delete`
 
-docker run -it -e="DISPLAY" -v="/tmp/.X11-unix:/tmp/.X11-unix:rw" gazebo:with-vnc-gui
+
 
 developing the images
 =====================
