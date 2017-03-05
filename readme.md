@@ -48,6 +48,16 @@ in this repository, you need to have 2 text files:
 	to this file, put a private ssh key to clone private github repository
 - rsync_pass  
     to this file, put a password to downlod mbzirc repo  
+
+so before building, the building directory should have this structure
+- only-repository (directory)
+- with-simulations (directory)
+- readme.md
+- id_rsa
+- psync_pass
+- updateRepository-noninteractive.sh
+- ...
+
     
 #### build
 - only repository: `docker build -f ./only-repository/Dockerfile -t gazebo:only-repository .`
